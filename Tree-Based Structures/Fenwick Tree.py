@@ -5,7 +5,6 @@ class Fenwick:
         self.bit = [0] * (n + 1)  
 
     def add(self, i: int, delta: int) -> None:
-        print(delta)
         while i <= self.n:
             self.bit[i] += delta
             i += i & -i
