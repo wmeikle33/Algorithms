@@ -1,10 +1,6 @@
 from math import inf
 
 def tsp_min_cycle(cost):
-    """
-    cost[i][j] = travel cost from i to j (square matrix)
-    Returns min tour cost visiting all nodes once and returning to 0.
-    """
     n = len(cost)
     N = 1 << n
     # dp[mask][i] = min cost to reach set 'mask' and end at node i
@@ -33,12 +29,3 @@ def tsp_min_cycle(cost):
     full = N - 1
     ans = min(dp[full][i] + cost[i][0] for i in range(n))
     return ans
-
-# Demo
-cost = [
-    [0, 10, 15, 20],
-    [10, 0, 35, 25],
-    [15, 35, 0, 30],
-    [20, 25, 30, 0],
-]
-print(tsp_min_cycle(cost)) 
