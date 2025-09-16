@@ -10,13 +10,6 @@ class _Node:
     next: Optional["_Node"] = None
 
 class LRUCache:
-    """
-    Classic LRU with O(1) get/put using:
-      - dict: key -> node
-      - doubly linked list: head <-> ... <-> tail
-        (MRU near head, LRU near tail)
-    get(k) -> value or -1 if missing (LeetCode-style)
-    """
     def __init__(self, capacity: int):
         assert capacity > 0
         self.cap = capacity
