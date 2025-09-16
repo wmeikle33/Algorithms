@@ -33,11 +33,6 @@ class SegTree:
 # ---------- Heavy–Light Decomposition ----------
 class HLD:
     def __init__(self, n, edges, values, root=1):
-        """
-        n: number of nodes (1-indexed)
-        edges: list of (u,v) undirected edges (tree)
-        values: list/array of node values, 1-indexed (values[0] dummy)
-        """
         self.n = n
         self.adj = [[] for _ in range(n+1)]
         for u, v in edges:
@@ -97,7 +92,6 @@ class HLD:
         while self.head[u] != self.head[v]:
             if self.depth[self.head[u]] < self.depth[self.head[v]]:
                 u, v = v, u
-            # head[u] is deeper
             res += self.st.query(self.pos[self.head[u]], self.pos[u])
             u = self.parent[self.head[u]]
         # now same head; ensure u is above v
