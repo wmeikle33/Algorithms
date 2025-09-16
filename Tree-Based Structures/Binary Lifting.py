@@ -12,7 +12,6 @@ class LCA:
         self._build(root)
 
     def _build(self, root):
-        # iterative DFS so parent is processed before child
         self.up[root][0] = root
         for i in range(1, self.LOG):
             self.up[root][i] = root
@@ -39,7 +38,6 @@ class LCA:
     def lca(self, a, b):
         if self.depth[a] < self.depth[b]:
             a, b = b, a
-        # lift a up to depth of b
         a = self.kth_ancestor(a, self.depth[a] - self.depth[b])
         if a == b:
             return a
@@ -55,9 +53,6 @@ class LCA:
         return self.depth[a] + self.depth[b] - 2 * self.depth[c]
 
     def kth_on_path(self, a, b, k):
-        """
-        0-based: k=0 returns a; k=dist(a,b) returns b.
-        """
         c = self.lca(a, b)
         da = self.depth[a] - self.depth[c]
         if k <= da:
