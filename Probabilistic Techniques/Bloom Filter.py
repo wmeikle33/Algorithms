@@ -9,12 +9,6 @@ def _to_bytes(x) -> bytes:
     return str(x).encode("utf-8")
 
 def _calc_m_k(n: int, p: float) -> tuple[int, int]:
-    """
-    Given expected items n and desired false-positive prob p (0 < p < 1),
-    return optimal bit-array size m and number of hash functions k.
-    m = ceil(-n * ln p / (ln 2)^2)
-    k = round((m / n) * ln 2)
-    """
     m = math.ceil(-n * math.log(p) / (math.log(2) ** 2))
     k = max(1, round((m / n) * math.log(2)))
     return m, k
@@ -43,8 +37,6 @@ class BloomFilter:
         b = _to_bytes(item)
         h1 = int.from_bytes(hashlib.sha256(b).digest()[:8], "little")
         h2 = int.from_bytes(hashlib.blake2b(b, digest_size=16).digest()[:8], "little")
-        # generate k indices: (h1 + i*h2) mod m
-        # note: use modulo once per i; avoid negative by masking via % self.m
         for i in range(self.k):
             yield (h1 + i * h2) % self.m
 
