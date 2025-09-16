@@ -3,12 +3,6 @@ from typing import List, Tuple
 Point = Tuple[float, float]
 
 def convex_hull(points: List[Point], include_collinear: bool = False) -> List[Point]:
-    """
-    Andrew's monotone chain.
-    - points: list of (x, y)
-    - include_collinear: if True, keeps all boundary points on edges (not just endpoints).
-    Returns hull as a list of points in CCW order (no repeated first point at end).
-    """
     pts = sorted(set(points))          # sort by x, then y; remove duplicates
     if len(pts) <= 1:
         return pts.copy()
