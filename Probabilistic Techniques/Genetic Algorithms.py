@@ -78,18 +78,3 @@ def genetic_algorithm(
     best_idx = np.argmin(fitness)
     return pop[best_idx], float(fitness[best_idx]), history
 
-# ----- Demo run -----
-if __name__ == "__main__":
-    dim = 10
-    lb = -5.12 * np.ones(dim)
-    ub =  5.12 * np.ones(dim)
-
-    best_x, best_f, hist = genetic_algorithm(
-        rastrigin, (lb, ub), dim,
-        pop_size=150, generations=300,
-        tournament_k=3, crossover_rate=0.9,
-        blx_alpha=0.5, mutation_rate=0.1, mutation_sigma=0.08,
-        elite=4, seed=42
-    )
-    print("\nBest objective:", best_f)
-    print("Best x (first 5 dims):", np.round(best_x[:5], 4))
