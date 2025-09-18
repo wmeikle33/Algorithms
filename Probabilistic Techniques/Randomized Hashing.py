@@ -3,16 +3,9 @@ import secrets
 MASK64 = (1 << 64) - 1
 
 class RandomizedStringHasher:
-    """
-    Rolling hash with TWO independent moduli:
-      - 64-bit wraparound (mod 2^64)
-      - Large prime 1_000_000_007
-    Bases are chosen at random each run.
-    """
     def __init__(self, s: str):
         self.s = s
         self.n = len(s)
-        # random bases (≥ 256 so characters don't dominate)
         self.b1 = secrets.randbelow(1_000_000_000 - 256) + 256
         self.b2 = secrets.randbelow(1_000_000_000 - 256) + 256
         self.M2 = 1_000_000_007
@@ -33,9 +26,6 @@ class RandomizedStringHasher:
             self.ph2[i] = (self.ph2[i-1] * self.b2 + c) % self.M2
 
     def hash(self, l: int, r: int):
-        """
-        Return a pair of hashes for substring s[l:r] (0 <= l <= r <= n).
-        """
         # 64-bit
         x1 = (self.ph1[r] - (self.ph1[l] * self.pw1[r - l] & MASK64)) & MASK64
         # mod prime
