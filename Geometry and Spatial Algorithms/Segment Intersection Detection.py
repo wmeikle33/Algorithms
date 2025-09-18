@@ -23,12 +23,7 @@ def _on_segment(a: Point, b: Point, p: Point) -> bool:
 def segments_intersect(
     p: Point, p2: Point, q: Point, q2: Point
 ) -> Union[None, Point, Tuple[str, Overlap]]:
-    """
-    Returns:
-      - None: no intersection
-      - (x, y): single intersection point (including endpoint touch)
-      - ('overlap', ((x1,y1),(x2,y2))): collinear overlapping segment (endpoints sorted)
-    """
+    
     r = _sub(p2, p)
     s = _sub(q2, q)
     rxs = _cross(r, s)
