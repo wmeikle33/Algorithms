@@ -12,7 +12,6 @@ class SegTreeSum:
             self.tree[i] = self.tree[2 * i] + self.tree[2 * i + 1]
 
     def set(self, i: int, v: int) -> None:
-        """a[i] = v"""
         p = i + self.size
         self.tree[p] = v
         p //= 2
