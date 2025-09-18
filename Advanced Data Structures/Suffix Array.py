@@ -1,22 +1,14 @@
 from typing import List
 
 def build_sa(s: str) -> List[int]:
-    """
-    Suffix Array of s (0-indexed), returns permutation sa so that
-    s[sa[0]:] < s[sa[1]:] < ... < s[sa[n-1]:]
-    """
     n = len(s)
     k = 1
-    # initial ranking by characters
     rank = list(map(ord, s))
     sa = list(range(n))
     tmp = [0] * n
 
     while True:
-        # sort by (rank[i], rank[i+k]) using Python's Timsort (stable)
         sa.sort(key=lambda i: (rank[i], rank[i + k] if i + k < n else -1))
-
-        # re-rank
         tmp[sa[0]] = 0
         for i in range(1, n):
             a, b = sa[i-1], sa[i]
@@ -54,8 +46,7 @@ def build_lcp(s: str, sa: List[int]) -> List[int]:
         if h:
             h -= 1
     return lcp  # note: lcp[0] = 0, length n
-
-# Optional: pattern search on SA (returns [start_idx, ...] where s[start:].startswith(pat))
+    
 def sa_search(s: str, sa: List[int], pat: str) -> List[int]:
     import bisect
     n = len(s)
@@ -71,7 +62,6 @@ def sa_search(s: str, sa: List[int], pat: str) -> List[int]:
                 lo = mid + 1
         return lo
 
-    # Upper bound for pat by comparing prefix order
     def ub():
         lo, hi = 0, n
         # Compare only up to len(pat)
