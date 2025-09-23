@@ -8,7 +8,7 @@ class LCA:
             self.adj[v].append(u)
 
         self.depth = [0] * (n + 1)
-        self.up = [[0] * self.LOG for _ in range(n + 1)]  # up[v][i] = 2^i-th ancestor of v
+        self.up = [[0] * self.LOG for _ in range(n + 1)] 
         self._build(root)
 
     def _build(self, root):
