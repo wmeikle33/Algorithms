@@ -5,9 +5,9 @@ class Node:
     __slots__ = ("key", "prio", "cnt", "size", "left", "right")
     def __init__(self, key: int):
         self.key = key
-        self.prio = random.getrandbits(31)   # heap priority (min-heap)
-        self.cnt  = 1                        # multiplicity of key
-        self.size = 1                        # subtree size counting multiplicities
+        self.prio = random.getrandbits(31) 
+        self.cnt  = 1                     
+        self.size = 1                      
         self.left: Optional["Node"] = None
         self.right: Optional["Node"] = None
 
