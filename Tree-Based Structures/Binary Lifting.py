@@ -41,7 +41,6 @@ class LCA:
         a = self.kth_ancestor(a, self.depth[a] - self.depth[b])
         if a == b:
             return a
-        # jump both up while their ancestors differ
         for i in range(self.LOG - 1, -1, -1):
             if self.up[a][i] != self.up[b][i]:
                 a = self.up[a][i]
@@ -57,7 +56,6 @@ class LCA:
         da = self.depth[a] - self.depth[c]
         if k <= da:
             return self.kth_ancestor(a, k)
-        # go from c down to b
         db = self.depth[b] - self.depth[c]
         k2 = da + db - k
         return self.kth_ancestor(b, k2)
