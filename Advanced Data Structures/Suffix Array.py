@@ -23,10 +23,6 @@ def build_sa(s: str) -> List[int]:
     return sa
 
 def build_lcp(s: str, sa: List[int]) -> List[int]:
-    """
-    Kasai's algorithm.
-    LCP[i] = LCP(suffix at sa[i], suffix at sa[i-1]), LCP[0] = 0.
-    """
     n = len(s)
     rank = [0] * n
     for i, p in enumerate(sa):
