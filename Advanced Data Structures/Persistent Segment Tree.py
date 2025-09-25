@@ -56,7 +56,6 @@ class PersistentSegTree:
             self.versions.append(root)
 
     def sum_version(self, ver: int, Lval, Rval) -> int:
-        """On version 'ver', count elements with values in [Lval, Rval]."""
         if self.M == 0: return 0
         li = bisect_left(self.coord, Lval)
         ri = bisect_right(self.coord, Rval) - 1
@@ -64,7 +63,6 @@ class PersistentSegTree:
         return _sum(self.versions[ver], 0, self.M - 1, li, ri)
 
     def count_in_subarray_leq(self, L: int, R: int, x) -> int:
-        """# of elements ≤ x in arr[L..R] (0-indexed, inclusive)."""
         if self.M == 0: return 0
         ri = bisect_right(self.coord, x) - 1
         if ri < 0: return 0
