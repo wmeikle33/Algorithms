@@ -4,7 +4,7 @@ class SegTreeSum:
 
     def __init__(self, a: List[int]):
         self.n = len(a)
-        self.size = 1 << (self.n - 1).bit_length()  # power of two
+        self.size = 1 << (self.n - 1).bit_length() 
         self.tree = [0] * (2 * self.size)
         # build
         self.tree[self.size:self.size + self.n] = a
@@ -20,7 +20,6 @@ class SegTreeSum:
             p //= 2
 
     def add(self, i: int, delta: int) -> None:
-        """a[i] += delta"""
         p = i + self.size
         self.tree[p] += delta
         p //= 2
@@ -29,7 +28,6 @@ class SegTreeSum:
             p //= 2
 
     def sum(self, l: int, r: int) -> int:
-        """Sum over [l, r)"""
         l += self.size; r += self.size
         res = 0
         while l < r:
