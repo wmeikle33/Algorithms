@@ -6,7 +6,6 @@ class SegTreeSum:
         self.n = len(a)
         self.size = 1 << (self.n - 1).bit_length() 
         self.tree = [0] * (2 * self.size)
-        # build
         self.tree[self.size:self.size + self.n] = a
         for i in range(self.size - 1, 0, -1):
             self.tree[i] = self.tree[2 * i] + self.tree[2 * i + 1]
