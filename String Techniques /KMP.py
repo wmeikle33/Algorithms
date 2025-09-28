@@ -18,7 +18,7 @@ def kmp_search(text: str, pattern: str) -> List[int]:
 
     lps = build_lps(pattern)
     res = []
-    j = 0  # index in pattern
+    j = 0 
     for i in range(n):
         while j > 0 and text[i] != pattern[j]:
             j = lps[j - 1]
