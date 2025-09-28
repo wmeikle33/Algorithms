@@ -16,7 +16,7 @@ class LCA:
         for i in range(1, self.LOG):
             self.up[root][i] = root
 
-        stack = [(root, 0)]  # (node, parent)
+        stack = [(root, 0)]
         while stack:
             u, p = stack.pop()
             if p:
