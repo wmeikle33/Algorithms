@@ -19,7 +19,6 @@ def rabin_karp(text: str, pat: str) -> int:
         return 0
 
     for i in range(m, n):
-        # slide: drop text[i-m], add text[i]
         hw = (hw * B + ord(text[i]) - ord(text[i - m]) * Bm) % M
         if hw < 0: hw += M
         if hw == hp and text[i - m + 1:i + 1] == pat:
