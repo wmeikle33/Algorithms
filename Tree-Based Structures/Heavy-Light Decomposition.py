@@ -1,6 +1,6 @@
 class SegTree:
     def __init__(self, arr):
-        self.n = len(arr) - 1                     # arr is 1-indexed
+        self.n = len(arr) - 1                   
         self.seg = [0] * (4 * self.n)
         self._build(arr, 1, 1, self.n)
 
@@ -30,7 +30,6 @@ class SegTree:
         m = (l + r) // 2
         return self.query(ql, qr, idx*2, l, m) + self.query(ql, qr, idx*2+1, m+1, r)
 
-# ---------- Heavy–Light Decomposition ----------
 class HLD:
     def __init__(self, n, edges, values, root=1):
         self.n = n
@@ -44,24 +43,19 @@ class HLD:
         self.size   = [0]*(n+1)
         self.heavy  = [-1]*(n+1)
 
-        self.head = [0]*(n+1)   # top node of the current heavy path
-        self.pos  = [0]*(n+1)   # position in base array
+        self.head = [0]*(n+1)   
+        self.pos  = [0]*(n+1)   
         self.timer = 0
 
-        self.values = values[:]  # keep original values (1-indexed)
+        self.values = values[:] 
 
-        # 1) dfs1: sizes & heavy child
         self._dfs1(root, 0)
-        # 2) dfs2: decompose & positions
         self.base = [0]*(n+1)
         self._dfs2(root, root)
-        # fill base with values mapped by pos
         for u in range(1, n+1):
             self.base[self.pos[u]] = self.values[u]
-        # 3) segment tree on base
         self.st = SegTree(self.base)
 
-    # ----- DFS 1: compute size, parent, depth, heavy child
     def _dfs1(self, u, p):
         self.parent[u] = p
         self.depth[u] = self.depth[p] + 1 if p else 0
@@ -75,7 +69,6 @@ class HLD:
                 max_sz = self.size[v]
                 self.heavy[u] = v
 
-    # ----- DFS 2: assign head & positions
     def _dfs2(self, u, h):
         self.head[u] = h
         self.timer += 1
@@ -86,7 +79,6 @@ class HLD:
                 if v != self.parent[u] and v != self.heavy[u]:
                     self._dfs2(v, v)      # start new heavy path
 
-    # ----- Path query (sum) between u and v
     def query_path(self, u, v):
         res = 0
         while self.head[u] != self.head[v]:
@@ -100,11 +92,9 @@ class HLD:
         res += self.st.query(self.pos[u], self.pos[v])
         return res
 
-    # ----- Point update: set node u to new_val
     def update_point(self, u, new_val):
         self.st.update(self.pos[u], new_val)
 
-    # ----- Subtree query (sum over subtree of u)
     def query_subtree(self, u):
         l = self.pos[u]
         r = self.pos[u] + self.size[u] - 1
