@@ -29,7 +29,6 @@ class AhoCorasick:
         for ch, v in self.next[0].items():
             self.fail[v] = 0
             q.append(v)
-        # BFS set fail links; merge outputs
         while q:
             u = q.popleft()
             for ch, v in self.next[u].items():
