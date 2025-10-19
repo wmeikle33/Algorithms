@@ -47,7 +47,6 @@ def sa_search(s: str, sa: List[int], pat: str) -> List[int]:
     import bisect
     n = len(s)
 
-    # Lower bound for pat
     def lb():
         lo, hi = 0, n
         while lo < hi:
@@ -60,7 +59,6 @@ def sa_search(s: str, sa: List[int], pat: str) -> List[int]:
 
     def ub():
         lo, hi = 0, n
-        # Compare only up to len(pat)
         def cmp_prefix(i):
             return s[sa[i]:sa[i] + len(pat)]
         while lo < hi:
