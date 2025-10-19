@@ -25,7 +25,6 @@ class AhoCorasick:
 
     def build(self):
         q = deque()
-        # depth-1 fail links = 0
         for ch, v in self.next[0].items():
             self.fail[v] = 0
             q.append(v)
