@@ -6,7 +6,7 @@ def rabin_karp(text: str, pat: str) -> int:
     if m > n:  return -1
 
     M = 1_000_000_007
-    B = 911382323  # < M
+    B = 911382323  
     Bm = pow(B, m, M)
 
     hp = 0
