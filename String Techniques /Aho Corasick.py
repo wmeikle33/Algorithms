@@ -2,11 +2,11 @@ from collections import deque
 
 class AhoCorasick:
     def __init__(self):
-        self.next = [dict()]     # trie transitions: list of dicts (state -> {char: state})
-        self.fail = [0]          # failure links
-        self.out  = [[]]         # output: pattern ids ending at this state
-        self.pats = []           # store patterns to report text spans
-        self.len  = []           # lengths for start index calc
+        self.next = [dict()]   
+        self.fail = [0] 
+        self.out  = [[]]       
+        self.pats = []         
+        self.len  = []     
 
     def add(self, pat: str, pid=None):
         if pid is None:
