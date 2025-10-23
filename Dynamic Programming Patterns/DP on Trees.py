@@ -2,7 +2,6 @@ from typing import List, Tuple
 import sys
 sys.setrecursionlimit(10**7)
 
-# ---------- helpers ----------
 def build_adj(n: int, edges: List[Tuple[int,int]]) -> List[List[int]]:
     g = [[] for _ in range(n)]
     for u, v in edges:
@@ -10,7 +9,6 @@ def build_adj(n: int, edges: List[Tuple[int,int]]) -> List[List[int]]:
     return g
 
 
-# 1) Subtree DP: sizes and sum of node values
 def subtree_size_and_sum(n: int, edges: List[Tuple[int,int]], val: List[int]) -> Tuple[List[int], List[int]]:
     g = build_adj(n, edges)
     sz = [0]*n           # subtree sizes
@@ -28,9 +26,6 @@ def subtree_size_and_sum(n: int, edges: List[Tuple[int,int]], val: List[int]) ->
     dfs(0, -1)
     return sz, ssum
 
-
-# 2) Maximum-Weight Independent Set on a tree (DP[u][0/1])
-# DP[u][0] = best if u not taken, DP[u][1] = best if u taken
 def tree_mwis(n: int, edges: List[Tuple[int,int]], w: List[int]) -> int:
     g = build_adj(n, edges)
     dp0 = [0]*n
@@ -69,10 +64,6 @@ def tree_diameter(n: int, edges: List[Tuple[int,int]]) -> int:
     dfs(0, -1)
     return ans
 
-
-# 4) Rerooting example: sum of distances from each node to all nodes
-# First DFS computes subtree sizes and "down[u]" = sum of distances from u to nodes in its subtree.
-# Second DFS reroots: ans[v] from ans[u] with formula.
 def sum_of_distances_all_nodes(n: int, edges: List[Tuple[int,int]]) -> List[int]:
     g = build_adj(n, edges)
     sz = [1]*n
