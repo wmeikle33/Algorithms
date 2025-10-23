@@ -4,8 +4,7 @@ def solve(params):
     def dp(state):
         if state in memo:
             return memo[state]
-        # ... compute ans using recursive subproblems dp(next_state) ...
-        ans = 0  # replace with real logic
+        ans = 0  
         memo[state] = ans
         return ans
 
