@@ -20,7 +20,6 @@ class LRUCache:
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    # ----- list helpers -----
     def _add_front(self, node: _Node) -> None:
         node.prev = self.head
         node.next = self.head.next
