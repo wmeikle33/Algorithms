@@ -7,13 +7,11 @@ def floyd_warshall(n: int, edges: List[Tuple[int,int,int]]):
     for i in range(n):
         dist[i][i] = 0
         nxt[i][i] = i
-    # initialize with best direct edges
     for u, v, w in edges:
         if w < dist[u][v]:
             dist[u][v] = w
             nxt[u][v]  = v
 
-    # main triple loop
     for k in range(n):
         dk = dist[k]
         for i in range(n):
@@ -28,8 +26,6 @@ def floyd_warshall(n: int, edges: List[Tuple[int,int,int]]):
                     di[j] = val
                     nx_i[j] = nx_i[k]
 
-    # detect & propagate negative cycles:
-    # if dist[k][k] < 0, then any i->k->j is -inf
     for k in range(n):
         if dist[k][k] < 0:
             for i in range(n):
@@ -44,7 +40,6 @@ def floyd_warshall(n: int, edges: List[Tuple[int,int,int]]):
     return dist, nxt
 
 def reconstruct_path(u: int, v: int, nxt: List[List[int]], dist: List[List[float]]) -> Optional[List[int]]:
-    """Return one shortest path u->v using nxt (None if unreachable or neg-cycle-affected)."""
     if dist[u][v] == inf or dist[u][v] == float('-inf') or nxt[u][v] == -1:
         return None
     path = [u]
