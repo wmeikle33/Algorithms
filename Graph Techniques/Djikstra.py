@@ -3,11 +3,11 @@ def dijkstra(n: int, adj: List[List[Tuple[int, int]]], src: int):
     dist = [INF] * n
     parent = [-1] * n
     dist[src] = 0
-    pq = [(0, src)]  # (distance so far, node)
+    pq = [(0, src)]  
 
     while pq:
         d, u = heapq.heappop(pq)
-        if d != dist[u]:          # stale entry
+        if d != dist[u]:     
             continue
         for v, w in adj[u]:
             nd = d + w
