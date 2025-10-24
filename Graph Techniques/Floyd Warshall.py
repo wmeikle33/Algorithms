@@ -2,12 +2,6 @@ from math import inf
 from typing import List, Tuple, Optional
 
 def floyd_warshall(n: int, edges: List[Tuple[int,int,int]]):
-    """
-    Directed graph with nodes 0..n-1, edges (u,v,w).
-    Returns:
-      dist[i][j]  : shortest distance i->j (inf if unreachable, -inf if neg-cycle-reachable)
-      nxt[i][j]   : next node after i on a shortest path to j (for reconstruction), or -1
-    """
     dist = [[inf]*n for _ in range(n)]
     nxt  = [[-1]*n  for _ in range(n)]
     for i in range(n):
