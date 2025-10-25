@@ -29,12 +29,10 @@ def genetic_algorithm(
 
     def tournament_select():
         idx = rng.integers(0, pop_size, size=tournament_k)
-        # pick best (lowest objective)
         return idx[np.argmin(fitness[idx])]
 
     history = []
     for g in range(generations):
-        # Elites
         elite_idx = np.argsort(fitness)[:elite]
         next_pop = [pop[i].copy() for i in elite_idx]
 
@@ -56,7 +54,6 @@ def genetic_algorithm(
                 mask = rng.random(dim) < mutation_rate
                 if mask.any():
                     c[mask] += rng.normal(0.0, mutation_sigma, size=mask.sum()) * span[mask]
-                # clip to bounds
                 np.clip(c, lb, ub, out=c)
 
             next_pop.extend([c1, c2])
