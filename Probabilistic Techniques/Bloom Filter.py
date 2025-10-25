@@ -15,24 +15,22 @@ def _calc_m_k(n: int, p: float) -> tuple[int, int]:
 
 class BloomFilter:
     def __init__(self, m: int, k: int):
-        self.m = m                      # number of bits
-        self.k = k                      # number of hash functions
+        self.m = m                    
+        self.k = k                     
         self.bits = bytearray((m + 7) // 8)
-        self.count = 0                  # items inserted (not distinct)
+        self.count = 0              
 
     @classmethod
     def from_params(cls, n: int, p: float = 0.01) -> "BloomFilter":
         m, k = _calc_m_k(n, p)
         return cls(m, k)
 
-    # ----- bit operations -----
     def _setbit(self, i: int) -> None:
         self.bits[i >> 3] |= 1 << (i & 7)
 
     def _getbit(self, i: int) -> bool:
         return (self.bits[i >> 3] >> (i & 7)) & 1 == 1
 
-    # ----- hashing (double hashing) -----
     def _indices(self, item) -> Iterable[int]:
         b = _to_bytes(item)
         h1 = int.from_bytes(hashlib.sha256(b).digest()[:8], "little")
@@ -40,7 +38,6 @@ class BloomFilter:
         for i in range(self.k):
             yield (h1 + i * h2) % self.m
 
-    # ----- public API -----
     def add(self, item) -> None:
         for idx in self._indices(item):
             self._setbit(idx)
