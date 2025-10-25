@@ -1,12 +1,10 @@
 import numpy as np
 from typing import Callable, Tuple
 
-# ----- Objective (demo): Rastrigin (global min = 0 at x=0) -----
 def rastrigin(x: np.ndarray) -> float:
     A = 10.0
     return A * x.size + np.sum(x**2 - A * np.cos(2 * np.pi * x))
 
-# ----- GA core -----
 def genetic_algorithm(
     f: Callable[[np.ndarray], float],
     bounds: Tuple[np.ndarray, np.ndarray],
@@ -26,7 +24,6 @@ def genetic_algorithm(
               np.broadcast_to(np.array(bounds[1], float), (dim,)))
     span = ub - lb
 
-    # init population
     pop = lb + rng.random((pop_size, dim)) * span
     fitness = np.array([f(ind) for ind in pop])  # lower is better (minimization)
 
@@ -41,13 +38,11 @@ def genetic_algorithm(
         elite_idx = np.argsort(fitness)[:elite]
         next_pop = [pop[i].copy() for i in elite_idx]
 
-        # Make offspring
         while len(next_pop) < pop_size:
             p1 = pop[tournament_select()]
             p2 = pop[tournament_select()]
             c1, c2 = p1.copy(), p2.copy()
 
-            # BLX-α crossover (gene-wise)
             if rng.random() < crossover_rate:
                 lo = np.minimum(p1, p2)
                 hi = np.maximum(p1, p2)
@@ -57,7 +52,6 @@ def genetic_algorithm(
                 c1 = rng.uniform(lo_exp, hi_exp)
                 c2 = rng.uniform(lo_exp, hi_exp)
 
-            # Gaussian mutation (gene-wise)
             for c in (c1, c2):
                 mask = rng.random(dim) < mutation_rate
                 if mask.any():
