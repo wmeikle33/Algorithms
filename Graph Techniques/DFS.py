@@ -2,7 +2,7 @@ from math import inf
 from typing import List
 
 def coin_change_min(coins: List[int], amount: int) -> int:
-    dp = [0] + [inf] * amount   # dp[x] = min coins to make x
+    dp = [0] + [inf] * amount
     for x in range(1, amount + 1):
         for c in coins:
             if x - c >= 0 and dp[x - c] != inf:
