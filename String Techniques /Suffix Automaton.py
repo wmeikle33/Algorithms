@@ -1,11 +1,11 @@
 class SuffixAutomaton:
     def __init__(self, s: str = ""):
-        self.next = []       # list[dict(char->state)]
-        self.link = []       # list[int]
-        self.length = []     # list[int]
-        self.occ = []        # endpos size (to be propagated)
-        self.first_pos = []  # first end position in original string
-        self.last = 0        # current last state
+        self.next = []       
+        self.link = []    
+        self.length = []   
+        self.occ = []        
+        self.first_pos = []
+        self.last = 0      
         self._init_state()
         self.s = ""
         if s:
@@ -23,8 +23,8 @@ class SuffixAutomaton:
         self.next.append({})
         self.length.append(self.length[self.last] + 1)
         self.link.append(0)
-        self.occ.append(1)               # each new terminal contributes 1
-        self.first_pos.append(idx)       # ends at idx
+        self.occ.append(1)            
+        self.first_pos.append(idx)   
         p = self.last
         while p >= 0 and c not in self.next[p]:
             self.next[p][c] = cur
@@ -41,7 +41,7 @@ class SuffixAutomaton:
                 self.next.append(self.next[q].copy())
                 self.length.append(self.length[p] + 1)
                 self.link.append(self.link[q])
-                self.occ.append(0)                 # clones don't start as terminals
+                self.occ.append(0)                
                 self.first_pos.append(self.first_pos[q])
                 while p >= 0 and self.next[p].get(c) == q:
                     self.next[p][c] = clone
