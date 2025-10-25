@@ -46,11 +46,9 @@ class BloomFilter:
     def __contains__(self, item) -> bool:
         return all(self._getbit(idx) for idx in self._indices(item))
 
-    # handy stats
     def fill_ratio(self) -> float:
         set_bits = sum(bin(byte).count("1") for byte in self.bits)
         return set_bits / self.m
 
     def fp_rate_estimate(self) -> float:
-        # (1 - e^{-k*n/m})^k with n≈items inserted (count)
         return (1 - math.e ** (-self.k * self.count / self.m)) ** self.k
