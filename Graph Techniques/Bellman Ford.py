@@ -7,7 +7,6 @@ def bellman_ford(n: int, edges: List[Tuple[int, int, int]], src: int):
     parent = [-1] * n
     dist[src] = 0
 
-    # Relax edges up to n-1 times
     for _ in range(n - 1):
         changed = False
         for u, v, w in edges:
@@ -18,12 +17,10 @@ def bellman_ford(n: int, edges: List[Tuple[int, int, int]], src: int):
         if not changed:
             break
 
-    # Build adjacency to propagate "negative cycle influence"
     adj = [[] for _ in range(n)]
     for u, v, _ in edges:
         adj[u].append(v)
 
-    # Detect nodes that can still be relaxed -> on or reachable from a negative cycle
     neg_cycle_nodes: Set[int] = set()
     queue = deque()
     for u, v, w in edges:
@@ -32,7 +29,6 @@ def bellman_ford(n: int, edges: List[Tuple[int, int, int]], src: int):
                 neg_cycle_nodes.add(v)
                 queue.append(v)
 
-    # Propagate to everything reachable from those nodes
     while queue:
         x = queue.popleft()
         for y in adj[x]:
@@ -40,7 +36,6 @@ def bellman_ford(n: int, edges: List[Tuple[int, int, int]], src: int):
                 neg_cycle_nodes.add(y)
                 queue.append(y)
 
-    # Mark distances of affected nodes as -inf
     for v in neg_cycle_nodes:
         dist[v] = float('-inf')
 
