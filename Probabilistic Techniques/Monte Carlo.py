@@ -1,16 +1,13 @@
 import numpy as np
 
-# --- Demand & lead-time models (edit these to fit your case) ---
 def sample_lead_time(rng, size):
     """Lead time in days ~ Normal(μ=5, σ=1), rounded to ≥1 day."""
     L = np.maximum(1, np.round(rng.normal(5, 1, size)).astype(int))
     return L
 
 def sample_daily_demand(rng, size):
-    """Daily demand ~ Poisson(λ=20)."""
     return rng.poisson(20, size)
 
-# --- Monte Carlo estimator for P(stockout) = P(D_L > R) ---
 def stockout_probability(R, n_sims=200_000, seed=0):
     rng = np.random.default_rng(seed)
     L = sample_lead_time(rng, n_sims)      # vector of lead times per trial
@@ -19,15 +16,13 @@ def stockout_probability(R, n_sims=200_000, seed=0):
     # Simulate a demand matrix (n_sims x max_L), then zero out days beyond each L
     D = sample_daily_demand(rng, (n_sims, max_L)).astype(float)
     D[np.arange(n_sims)[:, None], np.arange(max_L)[None, :] >= L[:, None]] = 0.0
-    DL = D.sum(axis=1)                      # lead-time demand per trial
+    DL = D.sum(axis=1)              
 
-    hits = (DL > R)                         # stockout indicator
+    hits = (DL > R)                        
     p_hat = hits.mean()
-    # 95% CI for a Bernoulli proportion
     se = np.sqrt(p_hat * (1 - p_hat) / n_sims)
     ci = (p_hat - 1.96 * se, p_hat + 1.96 * se)
 
-    # Extras to help pick R: mean/percentiles of D_L
     stats = {
         "mean_leadtime_demand": float(DL.mean()),
         "p90_leadtime_demand":  float(np.percentile(DL, 90)),
@@ -36,7 +31,6 @@ def stockout_probability(R, n_sims=200_000, seed=0):
     }
     return p_hat, ci, stats
 
-# --- Example usage ---
 if __name__ == "__main__":
     R = 120  # reorder point (units)
     p, ci, s = stockout_probability(R)
