@@ -11,9 +11,9 @@ def build_adj(n: int, edges: List[Tuple[int,int]]) -> List[List[int]]:
 
 def subtree_size_and_sum(n: int, edges: List[Tuple[int,int]], val: List[int]) -> Tuple[List[int], List[int]]:
     g = build_adj(n, edges)
-    sz = [0]*n           # subtree sizes
-    ssum = [0]*n         # subtree sum of values
-
+    sz = [0]*n           
+    ssum = [0]*n        
+    
     def dfs(u: int, p: int) -> None:
         sz[u] = 1
         ssum[u] = val[u]
