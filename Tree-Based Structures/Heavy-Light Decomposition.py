@@ -86,7 +86,6 @@ class HLD:
                 u, v = v, u
             res += self.st.query(self.pos[self.head[u]], self.pos[u])
             u = self.parent[self.head[u]]
-        # now same head; ensure u is above v
         if self.depth[u] > self.depth[v]:
             u, v = v, u
         res += self.st.query(self.pos[u], self.pos[v])
