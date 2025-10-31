@@ -72,7 +72,6 @@ class PersistentSegTree:
         return _sum(verR, 0, self.M - 1, 0, ri) - _sum(verL, 0, self.M - 1, 0, ri)
 
     def kth_in_subarray(self, L: int, R: int, k: int):
-        """k-th smallest (1-based) in arr[L..R]; raises if k invalid."""
         total = R - L + 1
         if not (1 <= k <= total):
             raise ValueError("k out of range")
