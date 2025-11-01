@@ -80,7 +80,6 @@ def find(t: Optional[Node], key: int) -> bool:
     return False
 
 def kth(t: Optional[Node], k: int) -> int:
-    """1-based k-th smallest; raises IndexError if k out of range."""
     if not t or k <= 0 or k > _sz(t): 
         raise IndexError("k out of range")
     left = _sz(t.left)
@@ -91,7 +90,6 @@ def kth(t: Optional[Node], k: int) -> int:
     return kth(t.right, k - left - t.cnt)
 
 def rank(t: Optional[Node], x: int) -> int:
-    """# of elements strictly less than x."""
     res = 0
     while t:
         if x <= t.key:
@@ -102,7 +100,6 @@ def rank(t: Optional[Node], x: int) -> int:
     return res
 
 def lower_bound(t: Optional[Node], x: int) -> Optional[int]:
-    """Smallest key >= x; None if no such key."""
     ans = None
     while t:
         if x <= t.key:
