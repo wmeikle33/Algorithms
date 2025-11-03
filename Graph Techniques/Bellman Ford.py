@@ -43,7 +43,6 @@ def bellman_ford(n: int, edges: List[Tuple[int, int, int]], src: int):
 
 
 def reconstruct_path(parent: List[int], t: int) -> Optional[List[int]]:
-    """Reconstruct path to t using parent[] (returns None if unreachable)."""
     if parent[t] == -1 and t != 0:  
         return None
     path = []
