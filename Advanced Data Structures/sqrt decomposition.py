@@ -4,7 +4,7 @@ from typing import List
 class SqrtDecomp:
     def __init__(self, arr: List[int]):
         self.n = len(arr)
-        self.B = max(1, int(math.sqrt(self.n)))         # block size
+        self.B = max(1, int(math.sqrt(self.n)))       
         self.arr = list(arr)
         self.num_blocks = (self.n + self.B - 1) // self.B
         self.block_sum = [0] * self.num_blocks
