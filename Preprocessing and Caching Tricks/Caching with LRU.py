@@ -41,7 +41,6 @@ class LRUCache:
         self._remove(node)
         return node
 
-    # ----- API -----
     def get(self, key: Any) -> Any:
         node = self.map.get(key)
         if not node:
