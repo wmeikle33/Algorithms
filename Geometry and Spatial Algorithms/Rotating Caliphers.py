@@ -54,7 +54,6 @@ def rotating_calipers_diameter(hull: List[Point]) -> Tuple[float, Tuple[Point, P
 
     for i in range(m):
         ni = (i + 1) % m
-        # move j while the "area" (parallelogram height) grows
         while area2(i, ni, (j + 1) % m) > area2(i, ni, j):
             j = (j + 1) % m
 
