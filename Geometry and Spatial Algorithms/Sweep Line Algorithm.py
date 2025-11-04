@@ -1,12 +1,6 @@
 from typing import List, Tuple
 
 def union_area(rects: List[Tuple[int,int,int,int]]) -> int:
-    """
-    rects: list of (x1, y1, x2, y2) with x1 < x2, y1 < y2 (integers or floats)
-    Returns total area covered by the union of rectangles.
-    Sweep along x; maintain covered y-length with a segment tree over compressed y.
-    """
-    # 1) Build events (x, type, y1, y2), type=+1 add, -1 remove
     events = []
     ys = set()
     for x1, y1, x2, y2 in rects:
