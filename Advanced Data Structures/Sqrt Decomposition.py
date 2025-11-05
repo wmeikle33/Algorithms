@@ -36,7 +36,6 @@ class SqrtDecomp:
             res += self.arr[i]
         for b in range(start_block + 1, end_block):
             res += self.block_sum[b]
-        # right partial
         start_right = end_block * self.B
         for i in range(start_right, r + 1):
             res += self.arr[i]
