@@ -2,7 +2,7 @@ from typing import Optional, Tuple, Union
 import math
 
 Point = Tuple[float, float]
-Overlap = Tuple[Point, Point]  # overlapping segment (collinear case)
+Overlap = Tuple[Point, Point] 
 
 EPS = 1e-9
 
@@ -16,7 +16,6 @@ def _dot(a: Point, b: Point) -> float:
     return a[0]*b[0] + a[1]*b[1]
 
 def _on_segment(a: Point, b: Point, p: Point) -> bool:
-    # assuming a, b, p are collinear; check if p is within the bounding box of a-b
     return (min(a[0], b[0]) - EPS <= p[0] <= max(a[0], b[0]) + EPS and
             min(a[1], b[1]) - EPS <= p[1] <= max(a[1], b[1]) + EPS)
 
@@ -31,19 +30,14 @@ def segments_intersect(
     qpxr = _cross(q_p, r)
 
     if abs(rxs) < EPS and abs(qpxr) < EPS:
-        # Collinear: project onto an axis to find overlap
-        # Use dot products along r to get scalar parameters for q and q2
         rr = _dot(r, r)
         if rr < EPS:
-            # p == p2 (degenerate)
             return p if math.hypot(q[0]-p[0], q[1]-p[1]) < EPS else None
         t0 = _dot(q_p, r) / rr
         t1 = t0 + _dot(s, r) / rr
         tmin, tmax = sorted((t0, t1))
-        # overlap exists if [tmin, tmax] intersects [0,1]
         if tmax < -EPS or tmin > 1+EPS:
             return None
-        # clamp to [0,1] and map back to points
         a = (p[0] + max(0.0, tmin)*r[0], p[1] + max(0.0, tmin)*r[1])
         b = (p[0] + min(1.0, tmax)*r[0], p[1] + min(1.0, tmax)*r[1])
         # if it collapses to a point, return that point
