@@ -14,7 +14,6 @@ def dist2(a: Point, b: Point) -> float:
     return dx*dx + dy*dy
 
 def convex_hull(points: List[Point]) -> List[Point]:
-    """Returns the convex hull in CCW order with no duplicate last point."""
     pts = sorted(set(points))
     if len(pts) <= 1:
         return pts[:]
