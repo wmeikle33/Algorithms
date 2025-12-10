@@ -74,7 +74,7 @@ class HLD:
         self.timer += 1
         self.pos[u] = self.timer
         if self.heavy[u] != -1:
-            self._dfs2(self.heavy[u], h)  # continue heavy path
+            self._dfs2(self.heavy[u], h)  
             for v in self.adj[u]:
                 if v != self.parent[u] and v != self.heavy[u]:
                     self._dfs2(v, v)      # start new heavy path
