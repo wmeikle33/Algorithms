@@ -14,3 +14,4 @@ def _build(self, root):
   self.up[root][0] = root
   for i in range(1, self.LOG):
     self.up[root][i] = root
+  stack = [(root,0)]
