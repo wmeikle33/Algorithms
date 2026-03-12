@@ -26,6 +26,7 @@ def _build(self, root):
         if v == p:
             continue
         stack.append((v, u))
+        
 def kth_ancestor(self, u, k):
       for i in range(self.LOG):
           if k & (1 << i):
