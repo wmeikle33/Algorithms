@@ -33,7 +33,8 @@ def kth_ancestor(self, u, k):
               u = self.up[u][i]
       return u
 
-BinaryLifting = LCA
+treeAncestor = LCA(7, [-1, 0, 0, 1, 1, 2, 2]
 
-BinaryLifting, 
-
+print(treeAncestor.getKthAncestor(3, 1))  
+print(treeAncestor.getKthAncestor(5, 2))  
+print(treeAncestor.getKthAncestor(6, 3))
