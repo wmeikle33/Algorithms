@@ -33,3 +33,7 @@ def kth_ancestor(self, u, k):
               u = self.up[u][i]
       return u
 
+BinaryLifting = LCA
+
+BinaryLifting, 
+
